@@ -64,7 +64,7 @@ function createBoxes() {
 	var output = "";
 	for (var key in boxes) {
 		output = "<div class='item'>\
-		<div onmousedown='dragStart(this.parentNode);' onmouseup='dragEnd();' class='header'>\
+		<div ontouchstart='dragStart(this.parentNode);' onmousedown='dragStart(this.parentNode);' ontouchend='dragEnd();' onmouseup='dragEnd();' class='header'>\
 			" + key + "<div onclick='this.parentNode.parentNode.remove();' class='close'>X</div>\
 		</div>\
 		<div class='content'>" + boxes[key] + "</div>\
