@@ -4,12 +4,7 @@ var diffX = 0;
 var diffY = 0;
 var doDrag = false;
 
-window.onload = function() {
-	window.addEventListener("mousemove", function(event) {
-		mx = event.clientX;
-		my = event.clientY;
-	});
-}
+
 
 
 
@@ -51,4 +46,41 @@ function drag(div) {
 
 function dragEnd() {
 	doDrag = false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function createBoxes() {
+	var output = "";
+	for (var key in boxes) {
+		output = "<div class='item'>\
+		<div onmousedown='dragStart(this.parentNode);' onmouseup='dragEnd();' class='header'>\
+			" + key + "<div onclick='this.parentNode.parentNode.remove();' class='close'>X</div>\
+		</div>\
+		<div class='content'>" + boxes[key] + "</div>\
+	</div>" + output;
+	}
+
+	document.body.innerHTML = output;
+}
+
+
+
+window.onload = function() {
+	window.addEventListener("mousemove", function(event) {
+		mx = event.clientX;
+		my = event.clientY;
+	});
+
+	createBoxes();
 }

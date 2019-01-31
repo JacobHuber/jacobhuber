@@ -1,0 +1,14 @@
+var boxes = {
+	"Hello Pt.1" : "First Box bruv",
+	"Hello Pt.2" : "Second Box bruv",
+	"Hello Pt.3" : "Third Box bruv",
+	"Hello Pt.4" : "Fourth Box bruv",
+	"Hello Pt.5" : "Fifth Box bruv",
+	"Hello Pt.6" : "Sixth Box bruv",
+	"Hello Pt.7" : "Seventh Box bruv",
+	"Hello Pt.8" : "Eighth Box bruv",
+	"Hello Pt.9" : "Ninth Box bruv",
+	"Hello Pt.10" : "Tenth Box bruv",
+	"Hello Pt.11" : "Eleventh Box bruv",
+	"Hello Pt.12" : "Twelfth Box bruv",
+}
