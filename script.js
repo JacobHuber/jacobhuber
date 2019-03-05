@@ -1,86 +1,39 @@
-var mx = 0;
-var my = 0;
-var diffX = 0;
-var diffY = 0;
-var doDrag = false;
+function load(page_name) {
+	clearTable();
+	fillTable(page_name);
+}
+
+function clearTable() {
+	let table = document.getElementById("table-main");
+	table.innerHTML = "<tr><th style='width: 30px'></th><th></th></tr>";
+}
+
+function fillTable(page_name) {
+	let table = document.getElementById("table-main");
+
+	let page = data[page_name];
+
+	for (let i = 1; i < page['lines'] + 1; i++) {
+		let row = document.createElement("tr");
+		row.id = "line" + i;
+		row.className = "table-line";
 
 
+		let lineNumber = document.createElement("td");
+		lineNumber.innerHTML = i;
+
+		let text = document.createElement("td");
+		text.className = "table-text";
+
+		let dataText = page[row.id];
+		if (dataText != null) {
+			text.innerHTML = dataText;
+		}
+
+		row.appendChild(lineNumber);
+		row.appendChild(text);
 
 
-
-function moveOffPage(div, the_speed_that_will_be_used_that_is_passed_as_an_argument_to_this_function) {
-	let y = div.getBoundingClientRect().top;
-
-	if (y > -350) {	
-		y += 95 + the_speed_that_will_be_used_that_is_passed_as_an_argument_to_this_function;
-		//console.log(x);
-		div.style.top = y + "px";
-		setTimeout(function() {
-			moveOffPage(div, the_speed_that_will_be_used_that_is_passed_as_an_argument_to_this_function-1);
-		}, 15);
-	} else {
-		div.remove();
-		// DELETE THE div
+		table.appendChild(row);
 	}
-}
-
-function dragStart(div) {
-	var rect = div.getBoundingClientRect();
-	var centerX = (rect.left + rect.right)/2;
-	var centerY = (rect.top + rect.bottom)/2;
-
-	diffX = mx - centerX;
-	diffY = my - centerY;
-
-	doDrag = true;
-	drag(div);
-}
-
-function drag(div) {
-	if (doDrag) {
-		div.style.left = mx - diffX + "px";
-		div.style.top = my - diffY + "px";
-		setTimeout(function() { drag(div); }, 1);
-	}
-}
-
-function dragEnd() {
-	doDrag = false;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-function createBoxes() {
-	var output = "";
-	for (var key in boxes) {
-		output = "<div class='item'>\
-		<div ontouchstart='dragStart(this.parentNode);' onmousedown='dragStart(this.parentNode);' ontouchend='dragEnd();' onmouseup='dragEnd();' class='header'>\
-			" + key + "<div onclick='this.parentNode.parentNode.remove();' class='close'>X</div>\
-		</div>\
-		<div class='content'>" + boxes[key] + "</div>\
-	</div>" + output;
-	}
-
-	document.body.innerHTML = output;
-}
-
-
-
-window.onload = function() {
-	window.addEventListener("mousemove", function(event) {
-		mx = event.clientX;
-		my = event.clientY;
-	});
-
-	createBoxes();
 }

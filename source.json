@@ -1,0 +1,17 @@
+data = {
+	"homepage" : {
+		"lines" : 18,
+		"line1" : "import <span class='key'>homepage</span>",
+		"line3" : "Hello!",
+		"line4" : "Welcome to <a href='https://www.jacobhuber.ca'>jacobhuber.ca</a>",
+		"line6" : "You're currently on the homepage. You can tell by looking at the top!",
+		"line8" : "There are other pages you can visit below:",
+		"line9" : "<span class='tab'> <a href=''>About</a> </span>",
+		"line10" : "<span class='tab'> <a href=''>Projects</a> </span>",
+		"line11" : "<span class='tab'> <a href=''>Games</a> </span>",
+		"line13" : "Find me elsewhere:",
+		"line14" : "<span class='tab'> <a href='https://github.com/JacobHuber'>GitHub</a> </span>", 	
+		"line16" : "Contact me:",
+		"line17" : "<span class='tab'> <a href='mailto:xjacobhuber@gmail.com'>xjacobhuber@gmail.com</a> </span>"
+	}
+}
