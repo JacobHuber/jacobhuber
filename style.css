@@ -13,6 +13,12 @@ body {
 	padding: 5px;
 }
 
+@media only screen and (max-width: 800px) {
+	#table-main {
+		font-size: 28pt;
+	}
+}
+
 .table-line {
 	text-align: center;
 }
