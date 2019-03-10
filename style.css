@@ -1,46 +1,76 @@
 body {
 	margin: 0;
-	background-color: #000;
-}
-
-#table-main {
-	color: #FFF;
-	width: 100%;
-
-	font-size: 28pt;
-	border-collapse: collapse;
-
-	padding: 5px;
-}
-
-@media only screen and (min-width: 768px) {
-	#table-main {
-		font-size: 10pt;
-	}
-}
-
-.table-line {
-	text-align: center;
-}
-
-.table-text {
-	text-align: left;
-	border-left: 1px solid #FFF;
-	padding-left: 10px;
-}
-
-tr:hover {
-	background-color: #111;
+	background-color: black;
 }
 
 a {
-	color: #F55;
+	color: #FF0;
+	text-decoration: none;
+	-webkit-transition: letter-spacing 0.5s;
+}
+
+a:hover {
+	letter-spacing: 2px;
 }
 
 .key {
-	color: #F00;
+	color: #EB0;
 }
 
-.tab {
-	padding-left: 25px;
+.centered {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 100%;
+	text-align: center;
+}
+
+.border {
+	position: relative;
+
+	background-color: #333;
+	color: #FFF;
+	padding: 18px;
+	font-size: 25pt;
+	letter-spacing: 10px;
+
+	border-radius: 0 25px;
+
+	width: 100%;
+	font-family: Impact;
+
+	opacity: 0.9;
+}
+
+.text {
+	background-color: #222;
+	color: #888;
+
+	padding: 25px 30px;
+	text-align: left;
+	
+	font-size: 16pt;
+	font-family: Courier New;
+}
+
+.bgimg {
+	position: relative;
+	opacity: 0.5;
+
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	cursor: default;
+}
+
+.bgimg-1 {
+	background-image: url("Lights2.jpg");
+	min-height: 100%; 
+}
+
+.bgimg-2 {
+	background-image: url("Fire.jpg");
+	min-height: 400px; 
 }
