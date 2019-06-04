@@ -6,21 +6,9 @@
 </head>
 
 
-<script>
-	function changeSong() {
-		const music = document.getElementById("music");
-		music.src = "";
-
-		setTimeout(function() {
-			const music = document.getElementById("music");
-			music.src = "song.mp3";
-			console.log("hehehe");
-		}, 100);
-	}
-</script>
-
-<body onload="changeSong();">
-	<audio id="music" autoplay onended="changeSong();"></audio>
+<body>
+	<button id="startButton" onclick="start();">Play</button>
+	<audio id="music" autoplay onended="playSong();"></audio>
 </body>
 
 <script src="bubbles.js"></script>

@@ -14,8 +14,8 @@ Bubble = function(x,y,size) {
 	this.div.style.position = "absolute";
 	this.div.style.left = this.x;
 	this.div.style.top = this.y;
-	this.ySpeed = - (1 + Math.random()*10);
-	this.xSpeed = (Math.random()-0.5)*2;
+	this.ySpeed = - (5 + Math.random()*5);
+	this.xSpeed = Math.random()-0.5;
 
 	
 	bubbles[bubbles.length] = this;
@@ -36,16 +36,48 @@ Bubble = function(x,y,size) {
 	}
 }
 
-var maxBubbles = 150;
+var maxBubbles = 50;
 for (var count = 1; count <= maxBubbles/2; count++) {
-	var bubble = new Bubble(count*document.body.clientWidth/(maxBubbles/2), -Math.random()*1200, 2);
+	var bubble = new Bubble(count*document.body.clientWidth/(maxBubbles/2), -(50 + Math.random()*1200), 2);
 	document.body.appendChild(bubble.div);
 }
 
-var interval = setInterval(mainLoop,5);
 
 function mainLoop() {
 	for (var index = 0; index < bubbles.length; index++) {
 		bubbles[index].move();
+	}
+}
+
+
+
+
+function playSong() {
+	const music = document.getElementById("music");
+	music.src = "";
+
+	setTimeout(function() {
+		const music = document.getElementById("music");
+		music.src = "song.mp3";
+	}, 100);
+}
+
+let started = false;
+
+
+function start() {
+	if (!started) {
+		started = true;
+
+		const button = document.getElementById("startButton");
+		button.style.opacity = 0;
+
+		setTimeout(function() {
+			button.remove();
+
+			const interval = setInterval(mainLoop, 25);
+			playSong();
+		}, 1000);
+
 	}
 }
