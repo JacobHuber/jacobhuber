@@ -1,94 +1,28 @@
 <html>
+
 <head>
-	<title>Jacob Huber</title>
-	<link rel='shortcut icon' type='image/png' href='favicon.png'>
-	<link rel='stylesheet' type='text/css' href='style.css'>
+	<title>Play me a song boy</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
 
-	<div id='header'>
-		<div id='navbar'>
-			~
-			<a href='#'>Home</a>
-			<a href='#'>About</a>
-			<a href='#'>Shop</a>
-			<a href='#'>Cart</a>
-			~
-		</div>
-	</div>
 
-	<div class='wrapper'>
-		<main>
-			<div class='side'></div>
-			<div id='content'>
-				<br><br>
-				<span style='font-size: 25pt'>Main Page</span>
-				<hr>
-				<div class='container'>
-					<div class='item'>
-						<img width='200px' height='200px' src='images/thumb.jpg'>
-						<div class='item-description'>
-							<div class='item-description-text'>This album by Galantis is full of fun high energy pop music!</div>
-						</div>
-						<div class='item-info'>$2,000</div>
-					</div>
-					<div class='item'>
-						<img width='200px' height='200px' src='images/thumb2.png'>
-						<div class='item-description'>
-							<div class='item-description-text'>It's gonna go boom hehe xd</div>
-						</div>
-						<div class='item-info'>$2,000</div>
-					</div>
-					<div class='item'>
-						<img width='200px' height='200px' src='images/thumb3.png'>
-						<div class='item-description'>
-							<div class='item-description-text'>A plane made up of the words plane. It isn't really good at flying, or anything that planes do; other than looking like a plane.</div>
-						</div>
-						<div class='item-info'>$2,000</div>
-					</div>
-					<div class='item'>
-						<img width='200px' height='200px' src='images/thumb4.jpg'>
-						<div class='item-description'>
-							<div class='item-description-text'>The robot is gonna beat the shit out of Rocky :'(</div>
-						</div>
-						<div class='item-info'>$2,000</div>
-					</div>
-					<div class='item'>
-						<img width='200px' height='200px' src='images/thumb5.jpg'>
-						<div class='item-description'>
-							<div class='item-description-text'>LIZARD BIRD BOI MAN</div>
-						</div>
-						<div class='item-info'>$2,000</div>
-					</div>
-					<div class='item'>
-						<img width='200px' height='200px' src='images/thumb6.jpg'>
-						<div class='item-description'>
-							<div class='item-description-text'>ring ring are you gonna answer</div>
-						</div>
-						<div class='item-info'>$2,000</div>
-					</div>
-					<div class='item'>
-						<img width='200px' height='200px' src='images/thumb7.jpg'>
-						<div class='item-description'>
-							<div class='item-description-text'>This city is trash.</div>
-						</div>
-						<div class='item-info'>$1</div>
-					</div>
-					<div class='item'>
-						<img width='200px' height='200px' src='images/thumb.jpg'>
-						<div class='item-description'>
-							<div class='item-description-text'>This album by Galantis is full of fun high energy pop music! It's also really expensive :)</div>
-						</div>
-						<div class='item-info'>$1,000,000</div>
-					</div>
-				</div>
-			</div>
-			<div class='side'></div>
-		</main>
+<script>
+	function changeSong() {
+		const music = document.getElementById("music");
+		music.src = "";
 
-		<footer>Email: <a href='mailto:fakeemail@gmail.com'>fakeemail@gmail.com</a></footer>
+		setTimeout(function() {
+			const music = document.getElementById("music");
+			music.src = "song.mp3";
+			console.log("hehehe");
+		}, 100);
+	}
+</script>
 
-	</div>
-
+<body onload="changeSong();">
+	<audio id="music" autoplay onended="changeSong();"></audio>
 </body>
+
+<script src="bubbles.js"></script>
+
 </html>
