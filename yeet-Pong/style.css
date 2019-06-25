@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 body {
 	background-color: #F32;
 	margin: 0;
@@ -44,51 +43,4 @@ body {
 	height: 4px;
 
 	background-color: #FFF;
-=======
-body {
-	background-color: #F32;
-	margin: 0;
-	overflow: hidden;
-
-	-webkit-transition: background-color 0.2s;
-	-moz-transition: background-color 0.2s;
-	-o-transition: background-color 0.2s;
-}
-
-#ball {
-	position: absolute;
-	width: 10px;
-	height: 10px;
-
-	background-color: #FFF;
-	border: 1px solid black;
-	border-radius: 100%;
-}
-
-#paddle {
-	position: absolute;
-	width: 80px;
-	height: 10px;
-
-	background-color: #FFF;
-	border: 2px solid black;
-	border-radius: 15%;
-}
-
-#fill {
-	width: 100%;
-	height: 100%;
-	color: #FFF;
-	font-size: 30vw;
-	text-align: center;
-}
-
-.block {
-	position: absolute;
-
-	width: 4px;
-	height: 4px;
-
-	background-color: #FFF;
->>>>>>> ce56d07ef573ded3e3c3860741eef04ca86f2211
 }
