@@ -110,7 +110,7 @@ function Player(game) {
 	this.speed = 12;
 	this.x_speed = 0;
 	this.momentum = 1;
-	this.tilt = false;
+	this.useTilt = false;
 
 	this.keys = {};
 
@@ -143,8 +143,8 @@ function Player(game) {
 	}
 
 	this.tilt = function(event) {
-		this.tilt = true;
 		if (event.gamma != null) {
+			this.useTilt = true;
 			this.speed = Math.abs(event.gamma);
 			if (event.gamma > 2) {
 				this.keys["d"] = true;
@@ -164,14 +164,15 @@ function Player(game) {
 	}
 
 	this.update = function() {
-		
 		const left = this.keys["a"] || this.keys["ArrowLeft"];
 		const right = this.keys["d"] || this.keys["ArrowRight"];
+
+		console.log(this.useTilt);
 
 		if ( (!left && !right) || (left && right) ) {
 			this.x_speed = this.x_speed * 0.9;
 		} else if (left) {
-			if (this.tilt) {
+			if (this.useTilt) {
 				this.x_speed = -this.speed;
 			} else {
 				if (this.x_speed > -this.speed) {
@@ -181,7 +182,7 @@ function Player(game) {
 				}
 			}
 		} else if (right) {
-			if (this.tilt) {
+			if (this.useTilt) {
 				this.x_speed = this.speed;
 			} else {
 				if (this.x_speed < this.speed) {
