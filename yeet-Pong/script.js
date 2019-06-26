@@ -23,7 +23,7 @@ function Ball(game) {
 	this.sound = document.createElement("audio");
 	this.sound.id = "ball_sound";
 	this.sound.autoplay = true;
-	this.sound.volume = 0.2;
+	this.sound.volume = 0.5;
 	//this.sound.style.display = "none";
 	document.body.appendChild(this.sound);
 
@@ -171,7 +171,7 @@ function Player(game) {
 		} else {
 			this.x_speed = 0;
 			if (this.x > window.innerWidth/2) {
-				this.x = window.innerWidth - this.width/2;
+				this.x = window.innerWidth - (this.width/2 + 2);
 			} else {
 				this.x = this.width/2;
 			}
