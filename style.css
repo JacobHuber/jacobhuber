@@ -1,0 +1,20 @@
+body {
+	color: #111;
+	background-color: #FEE;
+	text-align: center;
+	font-size: 64pt;
+
+	font-family: Palatino Linotype;
+	font-weight: normal;
+
+	padding: 128pt;
+}
+
+a {
+	color: #A00;
+	font-weight: 900;
+}
+
+a:hover {
+	color: #F00;
+}

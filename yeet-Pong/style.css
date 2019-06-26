@@ -10,12 +10,10 @@ body {
 
 #ball {
 	position: absolute;
-	width: 10px;
-	height: 10px;
+	width: 12px;
+	height: 12px;
 
 	background-color: #FFF;
-	border: 1px solid black;
-	border-radius: 100%;
 }
 
 #paddle {
@@ -23,9 +21,8 @@ body {
 	width: 80px;
 	height: 10px;
 
-	background-color: #FFF;
-	border: 2px solid black;
-	border-radius: 15%;
+	background-color: transparent;
+	border: 2px solid #FFF;
 }
 
 #fill {

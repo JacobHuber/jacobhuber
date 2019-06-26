@@ -5,9 +5,9 @@ function Ball(game) {
 	}
 
 	this.reset = function() {
-		this.angle = Math.random()*160 + 20;
+		this.angle = Math.random()*120 + 30;
 		
-		this.speed = (Math.random()*8 + 4);
+		this.speed = 6; //(Math.random()*8 + 4);
 
 		this.update_velocity();
 
@@ -19,6 +19,13 @@ function Ball(game) {
 		this.div.style.top = this.y + "px";
 	}
 	this.game = game;
+
+	this.sound = document.createElement("audio");
+	this.sound.id = "ball_sound";
+	this.sound.autoplay = true;
+	this.sound.volume = 0.2;
+	//this.sound.style.display = "none";
+	document.body.appendChild(this.sound);
 
 	this.div = document.createElement("div");
 	this.div.id = "ball";
@@ -54,6 +61,10 @@ function Ball(game) {
 
 		this.speed *= 1.01;
 		this.update_velocity();
+
+		this.sound.src = "";
+		this.sound.src = "click.mp3";
+
 		// 13 so that background isn't too bright.
 		var r = (Math.random()*13).toString(16);
 		var g = (Math.random()*13).toString(16);
@@ -94,6 +105,9 @@ function Player(game) {
 	this.div.style.top = this.y + "px";
 
 	this.speed = 10;
+
+	this.momentum = 0;
+	this.momentumCap = 10;
 
 	this.keys = {};
 
@@ -156,6 +170,11 @@ function Player(game) {
 			this.x += x_speed;
 		} else {
 			this.x_speed = 0;
+			if (this.x > window.innerWidth/2) {
+				this.x = window.innerWidth - this.width/2;
+			} else {
+				this.x = this.width/2;
+			}
 		}
 		
 		this.div.style.left = this.x - this.width/2 + "px";
@@ -218,6 +237,7 @@ function Game() {
 
 	ball = new Ball(this);
 	player = new Player(this);
+
 	
 	this.blocks = [player];
 	this.blocks = this.blocks.concat(Level(word, this));
