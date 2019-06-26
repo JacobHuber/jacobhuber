@@ -206,7 +206,6 @@ function Player(game) {
 		
 
 
-
 		if (this.collide_walls(this.x_speed)) {
 			this.x += this.x_speed;
 		} else {
@@ -336,9 +335,20 @@ function Play() {
 	}
 }
 
-function load() {
+function startGame() {
+	document.body.innerHTML = "";
+
 	var play = new Play();
 	window.setInterval(play.update, 15);
+}
+
+function load() {
+	const startButton = document.createElement("button");
+	startButton.id = "startButton";
+	startButton.innerHTML = "Start";
+	startButton.onclick = function() { startGame(); };
+
+	document.body.appendChild(startButton);
 }
 
 window.onload = load;
