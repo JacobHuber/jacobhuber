@@ -5,7 +5,11 @@ function Ball(game) {
 	}
 
 	this.reset = function() {
-		this.angle = Math.random()*120 + 30;
+		this.angle = Math.random()*30 + 30;
+		left = Math.random() < 0.5;
+		if (left) {
+			this.angle += 90;
+		}
 		
 		this.speed = 6; //(Math.random()*8 + 4);
 
@@ -21,8 +25,7 @@ function Ball(game) {
 	this.game = game;
 
 	this.sound = new Audio("click.mp3"); // document.createElement("audio");
-	this.sound.id = "ball_sound";
-	this.sound.autoplay = true;
+	this.sound.load()
 	this.sound.volume = 0.4;
 	//this.sound.style.display = "none";
 	//document.body.appendChild(this.sound);
@@ -104,10 +107,9 @@ function Player(game) {
 	this.div.style.left = this.x - this.width/2 + "px";
 	this.div.style.top = this.y + "px";
 
-	this.speed = 10;
-
-	this.momentum = 0;
-	this.momentumCap = 10;
+	this.speed = 12;
+	this.x_speed = 0;
+	this.momentum = 1;
 
 	this.keys = {};
 
@@ -141,7 +143,7 @@ function Player(game) {
 
 	this.tilt = function(event) {
 		if (event.gamma != null) {
-			this.speed = Math.abs(event.gamma);
+			this.momentum = Math.max(1, Math.abs(event.gamma));
 			if (event.gamma > 2) {
 				this.keys["d"] = true;
 				this.keys["a"] = false;
@@ -160,16 +162,34 @@ function Player(game) {
 	}
 
 	this.update = function() {
-		var x_speed = 0;
-		if (this.keys["a"] || this.keys["ArrowLeft"]) x_speed -= this.speed;
-		if (this.keys["d"] || this.keys["ArrowRight"]) x_speed += this.speed;
+		
+		const left = this.keys["a"] || this.keys["ArrowLeft"];
+		const right = this.keys["d"] || this.keys["ArrowRight"];
+
+		if ( (!left && !right) || (left && right) ) {
+			this.x_speed = this.x_speed * 0.9;
+		} else if (left) {
+			if (this.x_speed > -this.speed) {
+				this.x_speed -= this.momentum;
+			} else {
+				this.x_speed = -this.speed;
+			}
+		} else if (right) {
+			if (this.x_speed < this.speed) {
+				this.x_speed += this.momentum;
+			} else {
+				this.x_speed = this.speed;
+			}
+		}
+		
 
 
 
-		if (this.collide_walls(x_speed)) {
-			this.x += x_speed;
+		if (this.collide_walls(this.x_speed)) {
+			this.x += this.x_speed;
 		} else {
 			this.x_speed = 0;
+
 			if (this.x > window.innerWidth/2) {
 				this.x = window.innerWidth - (this.width/2 + 4);
 			} else {
