@@ -52,9 +52,8 @@ p {
 	width: 200px;
 	height: 50px;
 
-	background-color: rgba(0,0,0,0.5);
-	border: 1px solid #FFF;
-	border-radius: 0 25px 0 25px;
+	background-color: transparent;
+	border: 2px solid #FFF;
 	font-size: 25pt;
 	color: #FFF;
 
@@ -73,5 +72,6 @@ p {
 }
 
 #startButton:hover {
-	background-color: rgba(0,0,0,0.8);
+	color: rgba(255,255,255,0.5);
+	border-color: rgba(255,255,255,0.5);
 }
