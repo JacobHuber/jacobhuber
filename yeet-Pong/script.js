@@ -20,12 +20,12 @@ function Ball(game) {
 	}
 	this.game = game;
 
-	this.sound = document.createElement("audio");
+	this.sound = new Audio("click.mp3"); // document.createElement("audio");
 	this.sound.id = "ball_sound";
 	this.sound.autoplay = true;
-	this.sound.volume = 0.5;
+	this.sound.volume = 0.4;
 	//this.sound.style.display = "none";
-	document.body.appendChild(this.sound);
+	//document.body.appendChild(this.sound);
 
 	this.div = document.createElement("div");
 	this.div.id = "ball";
@@ -62,8 +62,8 @@ function Ball(game) {
 		this.speed *= 1.01;
 		this.update_velocity();
 
-		this.sound.src = "";
-		this.sound.src = "click.mp3";
+		this.sound.currentTime = 0;
+		this.sound.play();
 
 		// 13 so that background isn't too bright.
 		var r = (Math.random()*13).toString(16);
@@ -156,7 +156,7 @@ function Player(game) {
 	}
 
 	this.collide_walls = function(speed) {
-		return (this.x + this.width/2 + speed < window.innerWidth && this.x - this.width/2 + speed > 0);
+		return (this.x + this.width/2 + speed < window.innerWidth - 4 && this.x - this.width/2 + speed > 0);
 	}
 
 	this.update = function() {
@@ -171,7 +171,7 @@ function Player(game) {
 		} else {
 			this.x_speed = 0;
 			if (this.x > window.innerWidth/2) {
-				this.x = window.innerWidth - (this.width/2 + 2);
+				this.x = window.innerWidth - (this.width/2 + 4);
 			} else {
 				this.x = this.width/2;
 			}
@@ -242,7 +242,7 @@ function Game() {
 	this.blocks = [player];
 	this.blocks = this.blocks.concat(Level(word, this));
 	this.blocks.push(new Wall(new DOMRect(-100, 0, 100, window.innerHeight)));
-	this.blocks.push(new Wall(new DOMRect(window.innerWidth - 1, 0, 100, window.innerHeight)));
+	this.blocks.push(new Wall(new DOMRect(window.innerWidth, 0, 100, window.innerHeight)));
 	this.blocks.push(new Wall(new DOMRect(-100, -100, window.innerWidth+200, 100)));
 
 	window.addEventListener("keydown", player.keydown.bind(player))
