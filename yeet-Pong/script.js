@@ -143,7 +143,7 @@ function Player(game) {
 
 	this.tilt = function(event) {
 		if (event.gamma != null) {
-			this.momentum = Math.max(1, Math.abs(event.gamma));
+			//this.momentum = Math.max(1, Math.abs(event.gamma));
 			if (event.gamma > 2) {
 				this.keys["d"] = true;
 				this.keys["a"] = false;
