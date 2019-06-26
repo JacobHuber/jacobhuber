@@ -84,10 +84,16 @@ function Ball(game) {
 			var block = this.game.blocks[i];
 			if (this.collide_rect(this.x + this.width/2 + this.x_speed, this.y, block.rect) || this.collide_rect(this.x - this.width/2 + this.x_speed, this.y, block.rect) ) {
 				this.bounce(false);
-				if (block.constructor.name == "Block") block.destroy();
+				if (block.constructor.name == "Block") {
+					block.destroy();
+					this.game.addScore();
+				}
 			} else if (this.collide_rect(this.x, this.y + this.height/2 + this.y_speed, block.rect) || this.collide_rect(this.x, this.y - this.height/2 + this.y_speed, block.rect)) {
 				this.bounce(true);
-				if (block.constructor.name == "Block") block.destroy();
+				if (block.constructor.name == "Block") {
+					block.destroy();
+					this.game.addScore();
+				}
 			}
 		}
 	}
@@ -95,12 +101,19 @@ function Ball(game) {
 
 function Player(game) {
 	this.x = window.innerWidth/2;
-	this.y = window.innerHeight-80;
+	this.y = window.innerHeight - 80;
 
 	this.div = document.createElement("div");
 	this.div.id = "paddle";
 
+	this.charge = 0;
+	this.scoreText = document.createElement("p");
+	this.scoreText.innerHTML = game.score;
+	this.scoreText.style.top = this.y + "px";
+	this.scoreText.style.position = "absolute";
+
 	document.body.appendChild(this.div);
+	document.body.appendChild(this.scoreText);
 	this.rect = this.div.getBoundingClientRect();
 	
 	this.width = this.div.clientWidth;
@@ -167,8 +180,6 @@ function Player(game) {
 		const left = this.keys["a"] || this.keys["ArrowLeft"];
 		const right = this.keys["d"] || this.keys["ArrowRight"];
 
-		console.log(this.useTilt);
-
 		if ( (!left && !right) || (left && right) ) {
 			this.x_speed = this.x_speed * 0.9;
 		} else if (left) {
@@ -208,7 +219,19 @@ function Player(game) {
 			}
 		}
 		
+		if (this.charge >= 10) {
+			this.charge -= 10;
+
+			this.div.style.width = (this.div.clientWidth - 6) + "px";
+			this.width = this.div.clientWidth;
+		} 
+		const percent = ( (this.charge) / 10 ) * 100;
+		this.div.style.backgroundImage = "linear-gradient(to right, #FFF, #FFF " + percent + "%, transparent " + percent + "%)";
+
 		this.div.style.left = this.x - this.width/2 + "px";
+
+		const scoreWidth = this.scoreText.clientWidth;
+		this.scoreText.style.left = this.x - scoreWidth/2 + "px";
 
 		this.rect = this.div.getBoundingClientRect();
 		this.game.blocks[0] = this;
@@ -266,30 +289,38 @@ function Level(word, game) {
 function Game() {
 	var word = "yeet";
 
-	ball = new Ball(this);
-	player = new Player(this);
+	this.score = 0;
+	this.ball = new Ball(this);
+	this.player = new Player(this);
 
 	
-	this.blocks = [player];
+	this.blocks = [this.player];
 	this.blocks = this.blocks.concat(Level(word, this));
 	this.blocks.push(new Wall(new DOMRect(-100, 0, 100, window.innerHeight)));
 	this.blocks.push(new Wall(new DOMRect(window.innerWidth, 0, 100, window.innerHeight)));
 	this.blocks.push(new Wall(new DOMRect(-100, -100, window.innerWidth+200, 100)));
 
-	window.addEventListener("keydown", player.keydown.bind(player))
-	window.addEventListener("keyup", player.keyup.bind(player));
+	window.addEventListener("keydown", this.player.keydown.bind(this.player))
+	window.addEventListener("keyup", this.player.keyup.bind(this.player));
 
-	window.addEventListener("deviceorientation", player.tilt.bind(player));
+	window.addEventListener("deviceorientation", this.player.tilt.bind(this.player));
 
 	this.update = function() {
-		ball.update();
-		player.update();
+		this.ball.update();
+		this.player.update();
 
-		if (ball.y > window.innerHeight) {
+		if (this.ball.y > window.innerHeight) {
 			return false;
 		} else {
 			return true;
 		}
+	}
+
+	this.addScore = function() {
+		this.score += 1;
+
+		this.player.charge += 1;
+		this.player.scoreText.innerHTML = this.score;
 	}
 }
 
