@@ -329,23 +329,25 @@ function Play() {
 
 	this.update = function() {
 		if (!game.update()) {
+			clearInterval(gameTick);
 			document.body.innerHTML = "";
-			game = new Game();
+			load();
 		}
 	}
 }
 
+var gameTick;
 function startGame() {
 	document.body.innerHTML = "";
 
 	var play = new Play();
-	window.setInterval(play.update, 15);
+	gameTick = window.setInterval(play.update, 15);
 }
 
 function load() {
 	const startButton = document.createElement("button");
 	startButton.id = "startButton";
-	startButton.innerHTML = "Start";
+	startButton.innerHTML = "Play";
 	startButton.onclick = function() { startGame(); };
 
 	document.body.appendChild(startButton);
