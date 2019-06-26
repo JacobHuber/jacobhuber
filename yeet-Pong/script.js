@@ -145,7 +145,7 @@ function Player(game) {
 	this.tilt = function(event) {
 		this.tilt = true;
 		if (event.gamma != null) {
-			this.momentum = Math.abs(event.gamma);
+			this.speed = Math.abs(event.gamma);
 			if (event.gamma > 2) {
 				this.keys["d"] = true;
 				this.keys["a"] = false;
