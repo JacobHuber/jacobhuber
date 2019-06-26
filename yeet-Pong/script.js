@@ -110,6 +110,7 @@ function Player(game) {
 	this.speed = 12;
 	this.x_speed = 0;
 	this.momentum = 1;
+	this.tilt = false;
 
 	this.keys = {};
 
@@ -142,8 +143,9 @@ function Player(game) {
 	}
 
 	this.tilt = function(event) {
+		this.tilt = true;
 		if (event.gamma != null) {
-			//this.momentum = Math.max(1, Math.abs(event.gamma));
+			this.momentum = Math.abs(event.gamma);
 			if (event.gamma > 2) {
 				this.keys["d"] = true;
 				this.keys["a"] = false;
@@ -169,16 +171,24 @@ function Player(game) {
 		if ( (!left && !right) || (left && right) ) {
 			this.x_speed = this.x_speed * 0.9;
 		} else if (left) {
-			if (this.x_speed > -this.speed) {
-				this.x_speed -= this.momentum;
-			} else {
+			if (this.tilt) {
 				this.x_speed = -this.speed;
+			} else {
+				if (this.x_speed > -this.speed) {
+					this.x_speed -= this.momentum;
+				} else {
+					this.x_speed = -this.speed;
+				}
 			}
 		} else if (right) {
-			if (this.x_speed < this.speed) {
-				this.x_speed += this.momentum;
-			} else {
+			if (this.tilt) {
 				this.x_speed = this.speed;
+			} else {
+				if (this.x_speed < this.speed) {
+					this.x_speed += this.momentum;
+				} else {
+					this.x_speed = this.speed;
+				}
 			}
 		}
 		
