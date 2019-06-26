@@ -242,7 +242,7 @@ function Game() {
 	this.blocks = [player];
 	this.blocks = this.blocks.concat(Level(word, this));
 	this.blocks.push(new Wall(new DOMRect(-100, 0, 100, window.innerHeight)));
-	this.blocks.push(new Wall(new DOMRect(window.innerWidth, 0, 100, window.innerHeight)));
+	this.blocks.push(new Wall(new DOMRect(window.innerWidth - 1, 0, 100, window.innerHeight)));
 	this.blocks.push(new Wall(new DOMRect(-100, -100, window.innerWidth+200, 100)));
 
 	window.addEventListener("keydown", player.keydown.bind(player))
