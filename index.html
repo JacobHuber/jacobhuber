@@ -1,11 +1,27 @@
 <html>
 <head>
-	<title>Jacob's website......</title>
+	<title>JAGH</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-database.js"></script>
+
+	<script src="firebase.js"></script>
+	<script src="message.js"></script>
 </head>
 
-<body>
-	<p>Hey this website doesn't do anything but if you want you can play yeet pong by clicking <a href="https://www.jacobhuber.ca/yeet-Pong">here!</p></h1>
+<body onload="bodyLoad();">
+	
+	<div id="newMessage">
+		<h1>Write:</h1>
+		<textarea id="textarea" maxlength="250" placeholder="write anonymous messages to Jacob here..."></textarea>
+		<button onclick="sendMessage();">Send Message</button>
+	</div>
+
+	<div id="messages">
+		<h1>Messages:</h1>
+	</div>
+
 </body>
 
 </html>
