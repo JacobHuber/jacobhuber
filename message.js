@@ -21,19 +21,31 @@ function createMessage(content, response) {
 	messages.insertBefore(message, messages.childNodes[2]);
 }
 
+
+
 function loadMessages() {
 	database.ref("/messages").once("value")
 	.then(function(dataSnapshot) {
 		const messages = dataSnapshot.toJSON();
 
+		var unanswered = 0;
+
 		for (key in messages) {
 			const content = messages[key]["Content"];
 			const response = messages[key]["Response"];
 
+
 			if (response != "") {
 				createMessage(content, response);
+			} else {
+				unanswered += 1;
 			}
 		}
+
+		const text = unanswered + " Unanswered Message(s).";
+		document.getElementById("UNANSWERED").innerHTML = text;
+		console.log("There are " + text);
+
 	});
 }
 
