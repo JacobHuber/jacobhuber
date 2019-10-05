@@ -1,0 +1,63 @@
+body {
+	background-color: #AF5;
+	color: #FFF;
+
+	font-size: 32pt;
+
+	text-align: center;
+
+	margin: 0;
+}
+
+button {
+	width: 50%;
+	height: 30%;
+
+	border: 1px solid #000;
+	background-color: #FFF;
+
+
+	font-size: 32pt;
+
+	outline: none;
+}
+
+button:hover {
+	cursor: pointer;
+	background-color: #EEE;
+}
+
+button:active {
+	background-color: #DDD;
+}
+
+
+#outside {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+
+	left: 0;
+	top: 0;
+	
+
+	background-color: rgba(0,0,0,0.4);
+
+	visibility: hidden;
+}
+
+#card {
+	position: relative;
+	color: #000;
+	width: 95%;
+	height: 20%;
+
+	left: 2.5%;
+	top: 40%;
+
+	border: 1px solid #000;
+	background-color: #FFF;
+
+	padding: 20px 0;
+	user-select: none;
+}
