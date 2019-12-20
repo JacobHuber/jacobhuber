@@ -10,6 +10,33 @@ body {
 	padding: 48px;
 }
 
+.title {
+	font-size: 25pt;
+}
+
+
+.carousel {
+	display: flex;
+	margin: 0 auto;
+	
+	width: 840px;
+	height: 120px;
+}
+
+.box {
+	flex: 1;
+
+	border: 1px solid #FFF;
+	margin: 2px;
+
+	background-color: rgba(255,255,255,0.1);
+}
+
+.box:hover {
+	background-color: rgba(255,255,255,0.2);
+	cursor: pointer;
+}
+
 a {
 	color: #A00;
 	font-weight: 900;

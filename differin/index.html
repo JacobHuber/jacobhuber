@@ -1,0 +1,53 @@
+<html>
+<head>
+	<title>JAGH</title>
+	<link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+
+<body>
+	<span id="theBitch"></span>
+</body>
+<script>
+	const oldYear = 2019;
+	const oldMonth = 11;
+	const oldDay = 19;
+
+	const d = new Date();
+	const year = d.getFullYear();
+	const month = d.getMonth();
+	const date = d.getDate();
+
+	let months;
+	if (year % 4) months = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+	else months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+	let days = 0;
+
+	// Add days in past years
+	days += (year - oldYear) * 365;
+
+
+	// Add days in past months
+	for (let i = 0; i < (month - oldMonth); i++) {
+		days += months[i];
+	}
+
+
+	// Add days in current month
+	if (year == oldYear && month == oldMonth) {
+		days += date - oldDay;
+	} else {
+		days += date;
+	}
+	console.log(days);
+
+	let suffix = "";
+	if (days % 2 == 0) {
+		suffix = "<span style='color: limegreen;'>XP</span>";
+	}
+
+	const element = document.getElementById("theBitch");
+
+	element.innerHTML = "Hey Bitch, use Differin " + suffix + " today! K thanks :)";
+</script>
+</html>
