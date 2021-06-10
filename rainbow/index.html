@@ -20,7 +20,7 @@ body {
 
 <body>
 
-<input type="text" id="input">
+<input type="text" id="input" placeholder="Enter text to rainbow-fy">
 <button onclick="convertText()">Rainbow-fy</button>
 
 </body>
@@ -43,6 +43,14 @@ function convertText() {
 	}
 
 	user_input.value = new_string;
+
+	user_input.select();
+
+	document.execCommand("copy");
+
+	alert("Copied to clipboard");
+
+	user_input.value = "";
 }
 
 </script>
