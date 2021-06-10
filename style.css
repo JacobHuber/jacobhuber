@@ -1,6 +1,6 @@
 body {
-	color: #EEE;
-	background-color: #557;
+	color: #555;
+	background-color: #EEE;
 	text-align: center;
 	font-size: 19pt;
 
@@ -26,22 +26,14 @@ body {
 .box {
 	flex: 1;
 
-	border: 1px solid #FFF;
+	border: 1px solid #000;
+	border-radius: 5%;
 	margin: 2px;
 
-	background-color: rgba(255,255,255,0.1);
+	background-color: #EEE;
 }
 
 .box:hover {
-	background-color: rgba(255,255,255,0.2);
+	background-color: #DFF;
 	cursor: pointer;
-}
-
-a {
-	color: #A00;
-	font-weight: 900;
-}
-
-a:hover {
-	color: #F00;
 }
