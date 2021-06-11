@@ -24,7 +24,7 @@ body {
 	border: 1px solid #AAA;
 	border-radius: 10px;
 
-	height: 50vh;
+	height: auto;
 }
 
 .paragraph {
@@ -114,6 +114,9 @@ body {
 
 <script>
 
+// List of colour options
+// 	Key is colour to display on site
+//  Value is tag used in game
 const colours = {
 				"#D45B5F" : "enemy",
 				"#E7D086" : "system",
@@ -124,61 +127,91 @@ const colours = {
 				"#FFF" : ""
 };
 
+// Array to store current pattern
+// values are keys from colours object
 let pattern = [];
 
+/*
+* Converts the text from the input box
+* into a string with tags that match the
+* pattern. It is then copied to the 
+* clipboard to be pasted into valorant.
+*
+* Called after pressing a button.
+*/
 function convertTextValorant() {
 	const user_input = document.getElementById("input");
-	const text = user_input.value;
+	const text = user_input.value; // User input string
 
-	let new_string = "";
-	let j = 0;
+	let new_string = ""; // String to be constructed on
+	let j = 0; // Pattern iterator, increments on non-space characters
+
+	// Iterate input and add a tag to each letter
 	for (let i = 0; i < text.length; i++) {
 		const letter = text[i];
+		
 		if (letter != " ") {
 			const colour = colours[pattern[j % pattern.length]];
 
-			if (colour == "") {
+			if (colour === "" || colour === undefined) {
+				// Case for the colour white or if no pattern selected
 				new_string += letter;
 			} else {
+				// Any other colour
+
+				// prefix + letter + suffix
 				new_string += "<" + colour + ">";
 				new_string += letter;
 				new_string += "</>";
 			}
 
-			j++;
+			j++; // Increment pattern iterator
 		} else {
+			// Space character doesn't need colouring
 			new_string += " ";
 		}
 	}
 
-	user_input.value = new_string;
+	user_input.value = new_string; // Replace input with new string
 
-	user_input.select();
+	user_input.select(); // Select input
+	document.execCommand("copy"); // Copy input (new string) to clipboard
+	alert("Copied to clipboard"); // Alert user
 
-	document.execCommand("copy");
-
-	alert("Copied to clipboard");
-
-	user_input.value = "";
+	user_input.value = ""; // Clear input
 }
 
+/*
+* Converts text into string with
+* stylized spans that change the
+* colour of each letter to that of
+* the pattern. Updates the preview
+* with new string.
+* 
+* Called each time a key is pressed.
+*/
 function convertTextHTML() {
 	const user_input = document.getElementById("input");
-	const text = user_input.value;
+	const text = user_input.value; // User input string
 
-	let new_string = "";
-	let j = 0;
+	let new_string = ""; // String to be constructed on
+	let j = 0; // Pattern iterator, increments on non-space characters
+
+	// Iterate input and add a tag to each letter
 	for (let i = 0; i < text.length; i++) {
 		const letter = text[i];
+		
 		if (letter != " ") {
 			const colour = pattern[j % pattern.length];
 
+			// prefix + letter + suffix
 			new_string += "<span style='color: " + colour + ";'>";
 			new_string += letter;
 			new_string += "</span>";
 
-			j++;
+			j++; // Increment pattern iterator
 		} else {
+			// Space character doesn't need colouring
 			new_string += " ";
 		}
 		
@@ -186,19 +219,24 @@ function convertTextHTML() {
 
 
 	const preview = document.getElementById("preview");
-	preview.innerHTML = new_string;
-
+	preview.innerHTML = new_string; // Update preview with new string
 }
 
+/*
+* Removes circle from DOM and removes colour from pattern
+*/
 function removeColour(dom) {
 	const i = Array.from(document.getElementById("pattern-holder").children).indexOf(dom);
 
-	dom.remove();
-	pattern.splice(i, 1);
+	dom.remove(); // Remove circle
+	pattern.splice(i, 1); // Remove pattern from array
 
-	convertTextHTML();
+	convertTextHTML(); // Update preview
 }
 
+/*
+* Adds circle to DOM and adds colour to pattern
+*/
 function addColour(colour) {
 	const div = document.createElement("div");
 	div.className = "col-circle";
@@ -206,25 +244,28 @@ function addColour(colour) {
 	div.onclick = function() { removeColour(this); }
 
 	const holder = document.getElementById("pattern-holder");
-	holder.appendChild(div);
+	holder.appendChild(div); // Add circle to DOM
 
-	pattern.push(colour);
+	pattern.push(colour); // Add colour to pattern array
 
-	convertTextHTML();
+	convertTextHTML(); // Update preview
 }
 
-const keys = Object.keys(colours);
-const adder = document.getElementById("pattern-adder");
+// Sets up the page for button presses
+const keys = Object.keys(colours); // List of HEX Colours
+const adder = document.getElementById("pattern-adder"); // Where to add squares
 
 for (let i = 0; i < keys.length; i++) {
 	const div = document.createElement("div");
 	div.className = "col-square";
 	div.style.backgroundColor = keys[i];
-	div.onclick = function() { addColour(keys[i]); }
 	div.innerHTML = "+";
-	adder.appendChild(div);
 
-	addColour(keys[i]);
+	// Clicking a square will add that colour to the pattern
+	div.onclick = function() { addColour(keys[i]); }
+
+	adder.appendChild(div);
+	addColour(keys[i]); // Add colour to default pattern
 }
 
 </script>
