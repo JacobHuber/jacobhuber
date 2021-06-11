@@ -114,10 +114,12 @@ body {
 
 const colours = {
 				"#D45B5F" : "enemy",
-				"#96C0D6" : "team",
 				"#E7D086" : "system",
+				"#DBE1AE" : "self",
 				"#6DEE97" : "notification",
-				"#F99DF5" : "warning"
+				"#96C0D6" : "team",
+				"#F99DF5" : "warning",
+				"#FFF" : ""
 };
 
 let pattern = [];
@@ -133,9 +135,13 @@ function convertTextValorant() {
 		if (letter != " ") {
 			const colour = colours[pattern[j % pattern.length]];
 
-			new_string += "<" + colour + ">";
-			new_string += letter;
-			new_string += "</>";
+			if (colour == "") {
+				new_string += letter;
+			} else {
+				new_string += "<" + colour + ">";
+				new_string += letter;
+				new_string += "</>";
+			}
 
 			j++;
 		} else {
