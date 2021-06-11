@@ -11,35 +11,136 @@ body {
     background: -moz-linear-gradient(right, orange, yellow, green, cyan, blue, violet); /* For Firefox 3.6 to 15 */
     background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet); /* Standard syntax (must be last) */
 
-    text-align: center;
+    color: #333;
+}
+
+#box {
+	margin: 20px 20%;
+	padding: 10px 20px;
+
+	background-color: #FFF;
+	border: 1px solid #AAA;
+	border-radius: 10px;
+
+	height: 50vh;
+}
+
+.paragraph {
+	padding:  5px 20px;
+}
+
+#pattern-holder, #pattern-adder {
+	width: auto;
+	margin: 2px 0;
+	background-colour: #EEE;
+	border: 1px solid #555;
+
+	min-height: 12px;
+	padding: 5px;
+}
+
+.col-circle {
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+	border: 1px solid #000;
+
+	margin: 0 2px;
+
+	display: inline-block;
+	cursor: pointer;
+}
+
+#preview {
+	border: 1px solid #555;
+	background-color: #3C578D;
+	border-radius: 5px;
+
+	padding: 1px 4px;
+	width: 200px;
+	height: 40px;
+
+	text-shadow: -1px 0 #333;
+
+	font-size: 12pt;
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+
+.col-square {
+	width: 15px;
+	height: 15px;
+	border: 1px solid #000;
+
+	margin: 0 2px;
+
+	display: inline-block;
+	cursor: pointer;
+
+	text-align: center;
+	color: #333;
+	font-weight: bold;
 }
 
 </style>
 
 </head>
-
 <body>
 
-<input type="text" id="input" placeholder="Enter text to rainbow-fy">
-<button onclick="convertText()">Rainbow-fy</button>
+<div id="box">
+	<h1>Valorant Rainbow Text</h1>
+	<p>Use this tool to create different coloured text to style on your team or the enemy in chat!</p>
+	<p>The text colours will follow the pattern you give. Click the circles to remove it from the pattern, and the square to add the colour to the pattern.</p>
+
+	<div class="paragraph">
+		<input onkeyup="convertTextHTML();" type="text" id="input" placeholder="Enter text to rainbow-fy">
+		<button onclick="convertTextValorant();">Rainbow-fy</button>
+		<br>
+
+		<div id="pattern-holder"></div>
+		<div id="pattern-adder"></div>
+		
+		<p>
+			Preview:
+			<span id="preview"></span>
+		</p>
+		
+	</div>
+</div>
 
 </body>
 
 <script>
 
-const colours = ["enemy","team","system","notification","warning"]
+const colours = {
+				"#D45B5F" : "enemy",
+				"#96C0D6" : "team",
+				"#E7D086" : "system",
+				"#6DEE97" : "notification",
+				"#F99DF5" : "warning"
+};
 
-function convertText() {
+let pattern = [];
+
+function convertTextValorant() {
 	const user_input = document.getElementById("input");
 	const text = user_input.value;
 
 	let new_string = "";
+	let j = 0;
 	for (let i = 0; i < text.length; i++) {
-		const colour = colours[i % colours.length];
+		const letter = text[i];
+		if (letter != " ") {
+			const colour = colours[pattern[j % pattern.length]];
 
-		new_string += "<" + colour + ">";
-		new_string += text[i];
-		new_string += "</>";
+			new_string += "<" + colour + ">";
+			new_string += letter;
+			new_string += "</>";
+
+			j++;
+		} else {
+			new_string += " ";
+		}
 	}
 
 	user_input.value = new_string;
@@ -53,6 +154,70 @@ function convertText() {
 	user_input.value = "";
 }
 
-</script>
+function convertTextHTML() {
+	const user_input = document.getElementById("input");
+	const text = user_input.value;
 
+	let new_string = "";
+	let j = 0;
+	for (let i = 0; i < text.length; i++) {
+		const letter = text[i];
+		if (letter != " ") {
+			const colour = pattern[j % pattern.length];
+
+			new_string += "<span style='color: " + colour + ";'>";
+			new_string += letter;
+			new_string += "</span>";
+
+			j++;
+		} else {
+			new_string += " ";
+		}
+		
+	}
+
+
+	const preview = document.getElementById("preview");
+	preview.innerHTML = new_string;
+
+}
+
+function removeColour(dom) {
+	const i = Array.from(document.getElementById("pattern-holder").children).indexOf(dom);
+
+	dom.remove();
+	pattern.splice(i, 1);
+
+	convertTextHTML();
+}
+
+function addColour(colour) {
+	const div = document.createElement("div");
+	div.className = "col-circle";
+	div.style.backgroundColor = colour;
+	div.onclick = function() { removeColour(this); }
+
+	const holder = document.getElementById("pattern-holder");
+	holder.appendChild(div);
+
+	pattern.push(colour);
+
+	convertTextHTML();
+}
+
+const keys = Object.keys(colours);
+const adder = document.getElementById("pattern-adder");
+
+for (let i = 0; i < keys.length; i++) {
+	const div = document.createElement("div");
+	div.className = "col-square";
+	div.style.backgroundColor = keys[i];
+	div.onclick = function() { addColour(keys[i]); }
+	div.innerHTML = "+";
+	adder.appendChild(div);
+
+	addColour(keys[i]);
+}
+
+</script>
 </html>
