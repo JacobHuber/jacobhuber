@@ -20,8 +20,8 @@ body {
 	margin: 20px 20%;
 	padding: 10px 20px;
 
-	background-color: #FFF;
-	border: 1px solid #AAA;
+	background-color: rgba(255,255,255,0.6);
+	border: 1px solid rgba(100,100,100,0.4);
 	border-radius: 10px;
 
 	height: auto;
@@ -32,10 +32,12 @@ body {
 }
 
 #pattern-holder, #pattern-adder {
+	display: inline-block;
 	width: auto;
-	margin: 2px 0;
+	margin: 6px 0 0 0;
 	background-colour: #EEE;
-	border: 1px solid #555;
+	border: 1px solid rgba(100,100,100,0.8);
+	border-radius: 4px;
 
 	min-height: 12px;
 	padding: 5px;
@@ -84,6 +86,14 @@ body {
 	font-weight: bold;
 }
 
+input {
+	padding: 3px;
+
+	background-color: rgba(255,255,255,0.6);
+	border: 1px solid rgba(0,0,0,0.8);
+	border-radius: 4px;
+}
+
 </style>
 
 </head>
@@ -100,6 +110,7 @@ body {
 		<br>
 
 		<div id="pattern-holder"></div>
+		<br>
 		<div id="pattern-adder"></div>
 		
 		<p>
