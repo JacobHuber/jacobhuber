@@ -31,7 +31,7 @@ body {
 	padding:  5px 20px;
 }
 
-#pattern-holder, #pattern-adder {
+.circle-box {
 	display: inline-block;
 	width: auto;
 	margin: 6px 0 0 0;
@@ -109,14 +109,16 @@ input {
 		<button onclick="convertTextValorant();">Rainbow-fy</button>
 		<br>
 
-		<div id="pattern-holder"></div>
+		<span>Pattern:</span>
+		<div class="circle-box" id="pattern-holder"></div>
 		<br>
-		<div id="pattern-adder"></div>
-		
-		<p>
-			Preview:
+		<span>Palette:</span>
+		<div class="circle-box"  id="pattern-adder"></div>
+		<br>
+		<span>Preview:</span>
+		<div class="circle-box">
 			<span id="preview"></span>
-		</p>
+		</div>
 		
 	</div>
 </div>
@@ -213,7 +215,12 @@ function convertTextHTML() {
 		const letter = text[i];
 		
 		if (letter != " ") {
-			const colour = pattern[j % pattern.length];
+			let colour = pattern[j % pattern.length];
+
+			if (colour === undefined) {
+				// Case for no pattern selected
+				colour = "#FFF";
+			}
 
 			// prefix + letter + suffix
 			new_string += "<span style='color: " + colour + ";'>";
