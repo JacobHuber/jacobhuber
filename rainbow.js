@@ -4,8 +4,7 @@ const hamburger = document.getElementsByTagName("rect");
 
 let hue = Math.floor(Math.random() * 360);
 
-const timer = window.setInterval(function() {
-
+function changeColor() {
 	hue = (hue + 1) % 360;
 
 	for (let i = 0; i < rainbowText.length; i++) {
@@ -19,4 +18,10 @@ const timer = window.setInterval(function() {
 	for (let i = 0; i < hamburger.length; i++) {
 		hamburger[i].style.stroke = "hsl(" + hue + ", 100%, 50%)";
 	}
-}, 50);
+}
+
+const timer = window.setInterval(function() {
+	changeColor();
+}, 20);
+
+changeColor();
