@@ -124,6 +124,7 @@ function Player(game) {
 	this.x_speed = 0;
 	this.momentum = 1;
 	this.useTilt = false;
+	this.tiltDeadzone = 2;
 
 	this.keys = {};
 
@@ -159,16 +160,9 @@ function Player(game) {
 		if (event.gamma != null) {
 			this.useTilt = true;
 			this.speed = Math.abs(event.gamma);
-			if (event.gamma > 2) {
-				this.keys["d"] = true;
-				this.keys["a"] = false;
-			} else if (event.gamma < -2) {
-				this.keys["d"] = false;
-				this.keys["a"] = true;
-			} else {
-				this.keys["d"] = false;
-				this.keys["a"] = false;
-			}
+
+			this.keys["d"] = event.gamma > this.tiltDeadzone;
+			this.keys["a"] = event.gamma < -this.tiltDeadzone;
 		}
 	}
 
