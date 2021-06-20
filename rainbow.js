@@ -2,7 +2,7 @@ const rainbowText = document.getElementsByClassName("rainbow-text");
 const rainbowBG = document.getElementsByClassName("rainbow-bg");
 const hamburger = document.getElementsByTagName("rect");
 
-let hue = 0;
+let hue = Math.floor(Math.random() * 360);
 
 const timer = window.setInterval(function() {
 
