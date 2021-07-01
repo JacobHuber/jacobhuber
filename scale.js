@@ -52,6 +52,7 @@ function scale_up() {
 	} else {
 		const page = document.getElementById("content");
 		page.style.visibility = "visible";
+		page.style.opacity = "1";
 
 		set_scale(100);
 		running = false;
@@ -78,8 +79,8 @@ function toggle_scale() {
 			scale_up();
 		} else {
 			const page = document.getElementById("content");
-			page.style.visibility = "hidden";
-			scale_down();
+			page.style.opacity = "0";
+			setTimeout(scale_down, 350);
 		}
 	}
 }
