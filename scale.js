@@ -1,4 +1,5 @@
-let paths = []
+let paths = [];
+let items = [];
 
 function setup() {
 	const silhouette = document.getElementById("silhouette");
@@ -8,6 +9,13 @@ function setup() {
 		if (child.nodeName != "defs") {
 			paths.push(child);
 		}
+	}
+
+	const content = document.getElementById("content");
+	items.push(content);
+
+	for (let i = 0; i < content.children.length; i++) {
+		items.push(content.children[i]);
 	}
 }
 
@@ -50,9 +58,7 @@ function scale_up() {
 		scale(1.1);
 		setTimeout(scale_up, 5);
 	} else {
-		const page = document.getElementById("content");
-		page.style.visibility = "visible";
-		page.style.opacity = "1";
+		show_content();
 
 		set_scale(100);
 		running = false;
@@ -65,10 +71,28 @@ function scale_down() {
 		setTimeout(scale_down, 5);
 	} else {
 		set_scale(1);
+		hide_content();
 		running = false;
 	}
+}
 
+function fade_content() {
+	for (let i = 0; i < items.length; i++) {
+		items[i].style.opacity = "0";
+	}
+}
 
+function hide_content() {
+	for (let i = 0; i < items.length; i++) {
+		items[i].style.visibility = "hidden";
+	}
+}
+
+function show_content() {
+	for (let i = 0; i < items.length; i++) {
+		items[i].style.visibility = "visible";
+		items[i].style.opacity = "1";
+	}
 }
 
 function toggle_scale() {
@@ -78,8 +102,7 @@ function toggle_scale() {
 		if (current_scale() == 1) {
 			scale_up();
 		} else {
-			const page = document.getElementById("content");
-			page.style.opacity = "0";
+			fade_content();
 			setTimeout(scale_down, 350);
 		}
 	}
