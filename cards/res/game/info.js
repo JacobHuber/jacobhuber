@@ -9,7 +9,7 @@ const GAME_INFO = {
     networkTickrate: 10, // Network tickrate per second
 
     deckFolder: "decks", // The folder to look for decks
-    deckFileName: "xandor.json", // The deck filename to load relative to deckFolder
+    deckFileName: "cards.json", // The deck filename to load relative to deckFolder
 
     // Default card dimensions (these can be overriden per-instance)
     defaultCardWidth: 88,
