@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<title>Wordle Prune</title>
+		
+		<link href="style.css" rel="stylesheet">
+		
+		<script src="./words.js"></script>
+		<script src="./script.js"></script>
+	</head>
+	
+	<body>
+		<center><h1>Wordle Prune</h1></center>
+		<div class="grey" id="possibleAnswers">
+			<span style="font-size: 0.8em">CURRENT OPTIONS: </span>
+			<span style="font-weight: bold; font-size: 1em" id="answerListSize"></span>
+			<br><br>
+			<div onclick="showAnswers();" class="special"><div class="toggleOff"></div>show list</div>
+			<div id="answers"></div>
+		</div>
+		<br>
+	</body>
+</html>

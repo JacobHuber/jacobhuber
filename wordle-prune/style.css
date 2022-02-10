@@ -1,0 +1,99 @@
+body {
+	background-color: black;
+	color: white;
+
+	padding: 20px;
+}
+
+table {
+	margin: 2px auto;
+	padding: 0;
+
+	width: 60vw;
+	height: 12vw;
+
+	border-collapse: collapse;
+}
+
+td {
+	min-width:  12vw;
+	min-height: 12vw;
+	text-align: center;
+	font-size: 4em;
+
+	cursor: pointer;
+	user-select: none;
+	border-collapse: collapse;
+	border-left: 2px solid black;
+}
+
+@media only screen and (min-width: 768px) {
+	table {
+		width: 30vw;
+		height: 6vw;
+	}
+
+	td {
+		min-width:  6vw;
+		min-height: 6vw;
+	}
+}
+
+#possibleAnswers {
+	margin: 2px auto;
+	padding: 10px;
+
+	width: 70%;
+	min-height: 5%;
+	max-height: 200px;
+
+	overflow-y: auto;
+}
+
+.toggleOff {
+	display: inline-block;
+	width: 0px;
+	height: 0px;
+
+	border: 5px solid transparent;
+	border-left: 5px solid white;
+
+	cursor: pointer;
+	user-select: none;
+}
+
+.toggleOn {
+	display: inline-block;
+	width: 0px;
+	height: 0px;
+
+	border: 5px solid transparent;
+	border-top: 5px solid white;
+
+	cursor: pointer;
+	user-select: none;
+}
+
+.special {
+	font-size: 0.8em;
+	font-style: italic;
+
+	cursor: pointer;
+	user-select: none;
+}
+
+#answers {
+	display: none;
+}
+
+.green {
+	background-color: #538d4e;
+}
+
+.yellow {
+	background-color: #b59f3b;
+}
+
+.grey {
+	background-color: #3a3a3c;
+}
