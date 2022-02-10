@@ -1,23 +1,23 @@
+* {
+	box-sizing: border-box;
+}
+
 body {
 	background-color: black;
 	color: white;
 
-	padding: 20px;
+	padding-top: 20px;
+	margin: 0;
 }
 
 table {
 	margin: 2px auto;
 	padding: 0;
 
-	width: 60vw;
-	height: 12vw;
-
 	border-collapse: collapse;
 }
 
 td {
-	min-width:  12vw;
-	min-height: 12vw;
 	text-align: center;
 	font-size: 4em;
 
@@ -25,18 +25,6 @@ td {
 	user-select: none;
 	border-collapse: collapse;
 	border-left: 2px solid black;
-}
-
-@media only screen and (min-width: 768px) {
-	table {
-		width: 30vw;
-		height: 6vw;
-	}
-
-	td {
-		min-width:  6vw;
-		min-height: 6vw;
-	}
 }
 
 #possibleAnswers {
@@ -96,4 +84,36 @@ td {
 
 .grey {
 	background-color: #3a3a3c;
+}
+
+@media (orientation: landscape) {
+	table {
+		width: 30vw;
+		height: 6vw;
+	}
+
+	td {
+		min-width:  6vw;
+		min-height: 6vw;
+	}
+}
+
+@media (orientation: portrait) {
+	table {
+		width: 80vw;
+		height: 16vw;
+	}
+
+	td {
+		min-width:  16vw;
+		min-height: 16vw;
+	}
+
+	#possibleAnswers {
+		width: 100%;
+	}
+
+	* {
+		font-size: 1.2em;
+	}
 }
