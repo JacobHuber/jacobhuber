@@ -82,3 +82,7 @@ h1 {
 		font-size: 4em;
 	}
 }
+
+svg {
+	cursor: pointer;
+}
