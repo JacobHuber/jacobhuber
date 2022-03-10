@@ -74,6 +74,8 @@ class Ball {
 		this.sound.play();
 		this.game.changeColour();
 
+		navigator.vibrate(100);
+
 		//console.log(this.trailMax);
 
 		// 13 so that background isn't too bright.
