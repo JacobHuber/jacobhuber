@@ -11,12 +11,6 @@ class Player {
 
 		this.charge = 0;
 
-		this.scoreText = document.createElement("p");
-		this.scoreText.innerHTML = game.score;
-		this.scoreText.style.top = this.y + "px";
-		this.scoreText.style.position = "absolute";
-		
-
 		this.speed = 12;
 		this.x_speed = 0;
 		this.momentum = 1;
@@ -153,8 +147,5 @@ class Player {
 		ctx.font = fontSize + "px impact";
 		ctx.textAlign = "center";
 		ctx.fillText(this.game.score, this.rect.x + this.rect.w / 2, this.rect.y + this.rect.h + fontSize + 10);
-		const scoreWidth = this.scoreText.clientWidth;
-		this.scoreText.style.left = this.rect.x - scoreWidth/2 + "px";
-
 	}
 }

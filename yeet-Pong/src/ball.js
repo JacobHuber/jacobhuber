@@ -2,9 +2,10 @@ class Ball {
 	constructor(game, pos) {
 		this.game = game;
 
-		this.sound = new Audio("click.mp3");
+		this.sound = new Audio("sound/drum.wav");
+
 		this.sound.load()
-		this.sound.volume = 0.4;
+		this.sound.volume = 0.8;
 
 		this.size = 12;
 		this.rect = {
@@ -65,6 +66,7 @@ class Ball {
 
 		this.sound.currentTime = 0;
 		this.sound.play();
+		this.game.changeColour();
 
 		// 13 so that background isn't too bright.
 		/*

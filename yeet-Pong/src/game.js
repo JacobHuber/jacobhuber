@@ -14,6 +14,18 @@ class Game {
 		this.bgLightness = 0;
 		this.bgHue = 0;
 
+		this.sounds = {
+			points: [new Audio("sound/hit1.wav"), new Audio("sound/hit2.wav"), new Audio("sound/hit3.wav"), new Audio("sound/hit4.wav")]
+		}
+
+		this.sounds.points.forEach((s) => {
+			s.load();
+			s.volume = 0.4;
+		})
+
+		this.streak = 0;
+		this.streakTimer = 0;
+
 		// reference to collidable objects
 		this.collidables = [this.player];
 		this.level = new Level(word, this);
@@ -51,10 +63,16 @@ class Game {
 			c.update();
 		});
 
-		if (this.bgLightness > 1) {
+		if (this.bgLightness > 2) {
 			this.bgLightness -= 2;
 		} else {
-			this.bgLightness = 1;
+			this.bgLightness = 2;
+		}
+
+		if (this.streakTimer > 0) {
+			this.streakTimer -= 1;
+		} else {
+			this.streak = 0;
 		}
 
 		/*
@@ -69,8 +87,10 @@ class Game {
 		this.bgLightness += 10;
 		if (this.bgLightness > 50) {
 			this.bgLightness = 50;
-		}
+		}	
+	}
 
+	changeColour() {
 		this.bgHue = Math.random() * 360;
 	}
 
@@ -96,6 +116,17 @@ class Game {
 		this.score += 1;
 
 		this.player.charge += 1;
-		this.player.scoreText.innerHTML = this.score;
+
+		this.flash();
+
+		let i = this.streak % this.sounds.points.length;
+		if (Math.floor(this.streak / this.sounds.points.length) % 2 == 1) {
+			i = this.sounds.points.length - 1 - (this.streak % 4);
+		}
+		this.sounds.points[i].currentTime = 0;
+		this.sounds.points[i].play();
+		
+		this.streak += 1;
+		this.streakTimer = 100;
 	}
 }
