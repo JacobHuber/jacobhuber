@@ -1,11 +1,17 @@
 body {
-	background-color: #F32;
+	background-color: #000;
 	margin: 0;
 	overflow: hidden;
 
 	-webkit-transition: background-color 0.2s;
 	-moz-transition: background-color 0.2s;
 	-o-transition: background-color 0.2s;
+}
+
+#gameCanvas {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
 }
 
 #ball {
