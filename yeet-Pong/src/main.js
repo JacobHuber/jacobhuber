@@ -25,11 +25,12 @@ window.addEventListener('resize', callbackWindowSize);
 function callbackWindowSize() {
 	const canvas = document.getElementById("gameCanvas");
 
-
 	canvas.height = window.innerHeight;
 	if (window.innerWidth > window.innerHeight) {
+		// Landscape
 		canvas.width = Math.max(window.innerWidth * 0.4, 640);
 	}  else {
+		// Portrait
 		canvas.width = window.innerWidth;
 	}
 }
