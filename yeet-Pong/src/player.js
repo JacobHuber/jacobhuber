@@ -75,10 +75,17 @@ class Player {
 
 	update() {
 		if (this.cheat) {
-			const dist = ((this.game.ctx.canvas.height - 80) - this.game.balls[0].rect.y);
-			const dx = Math.cos(this.game.balls[0].angle*Math.PI/180) * dist;
+			let goalBall = this.game.balls[0];
+			for (let i = 1; i < this.game.balls.length; i++) {
+				if (this.game.balls[i].rect.y > goalBall.rect.y) {
+					goalBall = this.game.balls[i];
+				}
+			}
 
-			this.rect.x = this.game.balls[0].rect.x + dx - this.rect.w / 2;
+			const dist = ((this.game.ctx.canvas.height - 80) - goalBall.rect.y);
+			const dx = Math.cos(goalBall.angle*Math.PI/180) * dist;
+
+			this.rect.x = goalBall.rect.x + dx - this.rect.w / 2;
 		}
 
 		const left = this.keys["left"];
@@ -130,6 +137,18 @@ class Player {
 		}
 
 		this.game.collidables[0] = this;
+	}
+
+	drawUnder(ctx) {
+		if (!this.destroyed) {
+			const shadowOffset = 10;
+			ctx.fillStyle = "HSL(" + this.game.bgHue + ",100%," + (this.game.bgLightness - 2) + "%)";
+			ctx.fillRect(this.rect.x, this.rect.y, this.rect.w + shadowOffset, this.rect.h + shadowOffset);
+
+			const borderOffset = 6;
+			ctx.fillStyle = "black";
+			ctx.fillRect(this.rect.x - borderOffset, this.rect.y - borderOffset, this.rect.w + borderOffset * 2, this.rect.h + borderOffset * 2);
+		}
 	}
 
 	draw(ctx) {

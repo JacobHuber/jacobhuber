@@ -11,8 +11,10 @@ class Game {
 		}
 		this.player = new Player(this);
 
-		this.bgLightness = 0;
+		this.bgLightnessMin = 4;
+		this.bgLightness = this.bgLightnessMin;
 		this.bgHue = 0;
+		this.colour = "HSL(0,100%,50%)";
 
 		this.sounds = {
 			points: [new Audio("sound/hit1.wav"), new Audio("sound/hit2.wav"), new Audio("sound/hit3.wav"), new Audio("sound/hit4.wav")]
@@ -63,10 +65,10 @@ class Game {
 			c.update();
 		});
 
-		if (this.bgLightness > 2) {
+		if (this.bgLightness > this.bgLightnessMin) {
 			this.bgLightness -= 2;
 		} else {
-			this.bgLightness = 2;
+			this.bgLightness = this.bgLightnessMin;
 		}
 
 		if (this.streakTimer > 0) {
@@ -97,16 +99,25 @@ class Game {
 	draw() {
 		// Set background
 		let colour = this.bgLightness.toString(16).padStart(2, "0");
-		const hsl = "HSL(" + this.bgHue + ",100%," + this.bgLightness + "%)";
-		this.ctx.fillStyle = hsl;//"#" + colour + "0000";//colour + colour;
+		this.colour = "HSL(" + this.bgHue + ",100%," + this.bgLightness + "%)";
+		this.ctx.fillStyle = this.colour;//"#" + colour + "0000";//colour + colour;
 		this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
-		this.player.draw(this.ctx);
+		this.balls.forEach((ball) => {
+			ball.drawUnder(this.ctx);
+		});
 
 		this.balls.forEach((ball) => {
 			ball.draw(this.ctx);
 		});
+
+		this.player.drawUnder(this.ctx);
+		this.player.draw(this.ctx);
 		
+		this.gameObjects.forEach((c) => {
+			c.drawUnder(this.ctx);
+		});
+
 		this.gameObjects.forEach((c) => {
 			c.draw(this.ctx);
 		});

@@ -48,8 +48,22 @@ class Block {
 		}
 	}
 
+	drawUnder(ctx) {
+		if (!this.destroyed) {
+			const shadowOffset = 10;
+			ctx.fillStyle = "HSL(" + this.game.bgHue + ",100%," + (this.game.bgLightness - 2) + "%)";
+			ctx.fillRect(this.rect.x, this.rect.y, this.rect.w + shadowOffset, this.rect.h + shadowOffset);
+
+			const borderOffset = 6;
+			ctx.fillStyle = "black";
+			ctx.fillRect(this.rect.x - borderOffset, this.rect.y - borderOffset, this.rect.w + borderOffset * 2, this.rect.h + borderOffset * 2);
+		}
+	}
+
 	draw(ctx) {
 		if (!this.destroyed) {
+			
+
 			ctx.fillStyle = this.colour;
 			ctx.fillRect(this.rect.x, this.rect.y, this.rect.w, this.rect.h);
 		}

@@ -15,6 +15,7 @@ class Ball {
 			h: this.size
 		};
 
+		this.speedStart = 6;
 		this.speed = 0;
 		this.angle = 0;
 		this.vel = {
@@ -24,6 +25,11 @@ class Ball {
 		this.stop = false;
 
 		this.timeStop = false;
+
+
+		this.trail = [];
+		this.trailMaxStart = 5;
+		this.trailMax = 5;
 
 		this.reset();
 	}
@@ -35,7 +41,7 @@ class Ball {
 			this.angle += 90;
 		}
 		
-		this.speed = 6;
+		this.speed = this.speedStart;
 
 		this.update_velocity();
 
@@ -67,6 +73,8 @@ class Ball {
 		this.sound.currentTime = 0;
 		this.sound.play();
 		this.game.changeColour();
+
+		//console.log(this.trailMax);
 
 		// 13 so that background isn't too bright.
 		/*
@@ -211,7 +219,31 @@ class Ball {
 		this.rect.x += this.vel.x;
 		this.rect.y += this.vel.y;
 
-		if (this.rect.y >= this.game.ctx.canvas.height) {
+		this.trailMax = this.trailMaxStart + Math.floor(this.speed - this.speedStart);
+		if (this.speed > this.rect.w) {
+			let sx = this.rect.x - this.vel.x;
+			let sy = this.rect.y - this.vel.y;
+
+			for (let d = 0; d < this.speed; d += this.rect.w) {
+				const ratio = (d / this.speed)
+				const dx = ratio * this.vel.x;
+				const dy = ratio * this.vel.y;
+				this.trail.unshift({
+					x: sx + dx,
+					y: sy + dy
+				});
+			}
+		} else {
+			this.trail.unshift({
+				x: this.rect.x,
+				y: this.rect.y
+			});
+		}
+		while (this.trail.length > this.trailMax) {
+			this.trail.pop();
+		}
+
+		if (this.rect.y >= this.game.ctx.canvas.height + 50) {
 			const index = this.game.balls.indexOf(this);
 			this.game.balls.splice(index, 1);
 		}
@@ -257,14 +289,61 @@ class Ball {
 		//this.collide_paddle();
 	}
 
+	drawUnder(ctx) {
+		ctx.fillStyle = "HSL(" + this.game.bgHue + ",100%," + (this.game.bgLightness + 20) + "%)";
+		ctx.lineWidth = 2;
+		//ctx.moveTo(this.rect.x, this.rect.y);
+		for (let i = 0; i < this.trail.length; i++) {
+			const ratio = (this.rect.w / 2) / this.trail.length;
+			const size = (30 + this.trail.length - 1 - i) * ratio;
+			const p = this.trail[i];
+
+			const amount = 5;
+			const dx = ((Math.random() * amount) - amount/2) * (i / this.trail.length + 0.5);
+			const dy = ((Math.random() * amount) - amount/2) * (i / this.trail.length + 0.5);
+
+			//ctx.lineTo(p.x, p.y);
+			ctx.beginPath()
+			ctx.ellipse(p.x + dx, p.y + dy, size, size, 0, 0, 2 * Math.PI);
+			ctx.closePath();
+			ctx.fill();
+		}
+	}
+
 	draw(ctx) {
+		ctx.fillStyle = "HSL(" + this.game.bgHue + ",100%,50%)";//"#F00";
+		ctx.strokeStyle = "#FFF";
+		ctx.lineWidth = 2;
+		//ctx.moveTo(this.rect.x, this.rect.y);
+		for (let i = 0; i < this.trail.length; i++) {
+			const ratio = (this.rect.w / 2) / this.trail.length;
+			const size = (this.trail.length - 1 - i) * ratio;
+			const p = this.trail[i];
+
+			const amount = 20;
+			const dx = ((Math.random() * amount) - amount/2) * (i / this.trail.length);
+			const dy = ((Math.random() * amount) - amount/2) * (i / this.trail.length);
+
+			//ctx.lineTo(p.x, p.y);
+			ctx.beginPath()
+			ctx.ellipse(p.x + dx, p.y + dy, size, size, 0, 0, 2 * Math.PI);
+			ctx.closePath();
+			ctx.fill();
+			ctx.stroke();
+		}
+
+
 		ctx.fillStyle = "white";
+		ctx.strokeStyle = "#000";
 		//ctx.fillRect(this.rect.x, this.rect.y, this.rect.w, this.rect.h);
 
+		/*
 		ctx.beginPath()
 		ctx.ellipse(this.rect.x, this.rect.y, this.rect.w / 2, this.rect.h / 2, 0, 0, 2 * Math.PI);
 		ctx.closePath();
 		ctx.fill();
+		ctx.stroke();
+		*/
 
 
 		/*
